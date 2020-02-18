@@ -64,10 +64,10 @@ n.times do
   op, x = gets.chomp.split
 
   if op == 'insert'
-    if bt.nil?
-      bt = BinaryTree.new(x.to_i, nil, nil, nil)
+    if bt
+      bt.insert(BinaryTree.new(x.to_i))
     else
-      bt.insert(BinaryTree.new(x.to_i, nil, nil, nil))
+      bt = BinaryTree.new(x.to_i)
     end
   else
     puts " #{bt.in_order.map(&:to_s).join(' ')}"
