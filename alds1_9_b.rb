@@ -31,4 +31,4 @@ a.unshift(-1)
 
 build_max_heap(a)
 
-puts "#{a.drop(1).map(&:to_s).join(' ')} "
+puts a.drop(1).map{|ai| " #{ai.to_s}"}.join
