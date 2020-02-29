@@ -51,24 +51,20 @@ int main() {
 	queue<Puzzle> pq;
 
 	Puzzle f_puzzle;
-	for(int i=0;i<8;i++){
-		f_puzzle.peace[i/4][i%4] = i;
-	}
+	REP(i, 8) f_puzzle.peace[i / 4][i % 4] = i;
 	f_puzzle.t = 1;
 	f_puzzle.zero_p = {0, 0};
 
 	pq.push(f_puzzle);
 
-	while(!pq.empty()){
+	while (!pq.empty()) {
 		Puzzle p = pq.front();pq.pop();
 		int h_value = toHash(p.peace);
 
-		if(ps[h_value] != 0){
-			continue;
-		}
+		if (ps[h_value] != 0) continue;
 
 		P zero_p = p.zero_p;
-		for (int i = 0; i < 4; i++) {
+		REP(i, 4) {
 			int mx = zero_p.x + dx[i];
 			int my = zero_p.y + dy[i];
 
