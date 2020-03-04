@@ -8,6 +8,7 @@ INF = 0xffffffff
 dp = Array.new(n) { Array.new(n, INF) }
 
 # i < j のみ考える（＝四角形の右上半分、対角線も除く）
+# i < j のみ考える（＝四角形の右上半分、対角線も除く）
 # dp[0][1], dp[1][2], ..., dp[n-2][n-1] は m[i][0]
 
 
