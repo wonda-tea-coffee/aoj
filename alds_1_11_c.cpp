@@ -46,7 +46,7 @@ void bfs() {
     int node = p.first;
     int dist = p.second;
 
-    if (d[node] > 0) continue;
+    if (d[node] >= 0) continue;
 
     d[node] = dist;
     for (int i = 0; i < g[node].size(); i++) {
@@ -70,7 +70,7 @@ int main() {
     }
     sort(g[u])
   }
-  memset(d, 0, sizeof(d));
+  memset(d, -1, sizeof(d));
 
   bfs();
 
