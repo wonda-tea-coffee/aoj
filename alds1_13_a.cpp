@@ -93,9 +93,6 @@ bool back_track(int n) {
 
       grid[i][j] = 'Q';
 
-      int snj = j + 1;
-      int sni = i;
-      if (j == SIZE) { snj = 0, sni++; }
       if (back_track(n-1)) return true;
 
       grid[i][j] = '.';
