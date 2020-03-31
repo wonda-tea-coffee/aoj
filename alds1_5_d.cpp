@@ -7,14 +7,13 @@ using ll = long long;
 int L[MAX / 2 + 2], R[MAX / 2 + 2];
 
 ll merge(int A[], int left, int mid, int right) {
-  ll ret = 0;
   ll n1 = mid - left;
   ll n2 = right - mid;
   for (int i = 0; i < n1; i++) L[i] = A[left + i];
   for (int i = 0; i < n2; i++) R[i] = A[mid + i];
   L[n1] = R[n2] = SENTINEL;
   
-  int li = 0, ri = 0;
+  ll li = 0, ri = 0, ret = 0;
   for (int k = left; k < right; k++) {
     if (L[li] <= R[ri]) {
       A[k] = L[li++];
