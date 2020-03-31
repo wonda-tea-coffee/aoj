@@ -14,15 +14,19 @@ using ll = long long;
 ll n, k;
 
 ll solve2(vector<ll> x) {
+  if (n == 1) return 0;
+
   vector<ll> y(n-1);
   for (int i = 1; i < n; i++)
     y[i-1] = x[i] - x[i-1];
   sort(y);
 
   ll ans = x[n-1] - x[0];
-  for (int i = 0; i < k-1; i++)
+  for (int i = 0; i < k-1; i++) {
     ans -= y[n-2-i];
-  return max(ans, 0ll);
+    if (ans < 0) return 0;
+  }
+  return ans;
 }
 
 void solve() {
