@@ -4,6 +4,7 @@
     "ostream": "cpp",
     "utility": "cpp",
     "algorithm": "cpp",
-    "iomanip": "cpp"
+    "iomanip": "cpp",
+    "vector": "cpp"
   }
 }
