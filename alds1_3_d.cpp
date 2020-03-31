@@ -41,21 +41,26 @@
 
 using namespace std;
 using ll = long long;
+using ld = long double;
 using P = pair<ll,ll>;
 
-void solve() {
-  stack<ll> S1; // \の位置を格納
-  stack<P> S2;
-  string s; cin >> s;
-  ll sum = 0;
+const ll MOD = 1000000007; // 10^9 + 7
+const int dx[8] = {1, 0, -1, 0, 1, -1, -1, 1};
+const int dy[8] = {0, 1, 0, -1, 1, 1, -1, -1};
 
+void solve() {
+  string s; cin >> s;
+  stack<ll> S1;
+  stack<P> S2;
+  int sum = 0;
   for (int i = 0; i < s.size(); i++) {
     if (s[i] == '\\') S1.push(i);
-    else if (s[i] == '/' && S1.size() > 0) {
+    else if (s[i] == '/' && !S1.empty()) {
       int j = S1.top(); S1.pop();
       sum += i - j;
       int a = i - j;
-      while (S2.size() > 0 && S2.top().first > j) {
+
+      while (!S2.empty() && S2.top().first > j) {
         a += S2.top().second; S2.pop();
       }
       S2.push(make_pair(j, a));
@@ -63,11 +68,12 @@ void solve() {
   }
 
   vector<ll> ans;
-  while (S2.size() > 0) {
-    ans.push_back(S2.top().second);
+  while (!S2.empty()) {
+    ans.emplace_back(S2.top().second);
     S2.pop();
   }
   reverse(ans);
+
   outl(sum);
   cout << ans.size();
   for (int ai : ans) cout << " " << ai;
