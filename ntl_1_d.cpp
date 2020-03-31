@@ -67,9 +67,11 @@ vector<P> factor(ll n) {
 ll mypow(ll x, ll n) {
   ll res = 1;
   while (n > 0) {
-    if (n & 1) res = res * x;
-    x = x * x;
-    n >>= 1;
+    if (n & 1) {
+      res = res * x;
+      x = x * x;
+      n >>= 1;
+    }
   }
   return res;
 }
@@ -82,7 +84,7 @@ ll phi(ll n) {
     ll p = vi.first;
     ll k = vi.second;
     ret *= mypow(p, k-1) * (p-1);
-  }
+   }
 
   return ret;
 }
