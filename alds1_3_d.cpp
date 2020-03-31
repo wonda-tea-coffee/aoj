@@ -41,15 +41,10 @@
 
 using namespace std;
 using ll = long long;
-using ld = long double;
 using P = pair<ll,ll>;
 
-const ll MOD = 1000000007; // 10^9 + 7
-const int dx[8] = {1, 0, -1, 0, 1, -1, -1, 1};
-const int dy[8] = {0, 1, 0, -1, 1, 1, -1, -1};
-
 void solve() {
-  stack<ll> S1;
+  stack<ll> S1; // \の位置を格納
   stack<P> S2;
   string s; cin >> s;
   ll sum = 0;
