@@ -23,7 +23,7 @@ ll solve2(vector<ll> x) {
 
   ll ans = x[n-1] - x[0];
   for (int i = 0; i < k-1; i++) {
-    ans -= y[n-2-i];
+    ans -= y[n-2-i]; // n = 1のときにここ来るとジャッジで死ぬ
     if (ans < 0) return 0;
   }
   return ans;
