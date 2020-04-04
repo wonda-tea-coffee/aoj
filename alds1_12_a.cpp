@@ -57,7 +57,6 @@ const int BLACK = 2;
 int n, M[MAX][MAX];
 
 ll prim() {
-  ll u, minv;
   ll d[MAX], p[MAX], color[MAX];
 
   rep(i, n) {
@@ -69,8 +68,7 @@ ll prim() {
   d[0] = 0;
 
   while(1) {
-    minv = INF;
-    u = -1;
+    ll u = -1, minv = INF;
     rep(i, n) {
       if (d[i] < minv && color[i] != BLACK) {
         u = i;
