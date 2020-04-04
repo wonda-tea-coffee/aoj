@@ -51,49 +51,34 @@ const int dy[8] = {0, 1, 0, -1, 1, 1, -1, -1};
 
 void solve() {
   const ll MAX = 100;
-  const ll WHITE = 0;
-  const ll GRAY  = 1;
-  const ll BLACK = 2;
 
   ll n; cin >> n;
   ll mat[MAX][MAX];
-  rep(i, n)rep(j, n) {
-    cin >> mat[i][j];
-    if (mat[i][j] == -1) mat[i][j] = INF;
+  rep(i, n)rep(j, n) cin >> mat[i][j];
+
+  vector<bool> mst(n, false);
+  ll ans = 0;
+  mst[0] = true;
+  priority_queue<tuple<ll, ll, ll>> pq;
+  for (int i = 1; i < n; i++) {
+    if (mat[0][i] != -1) pq.emplace(-mat[0][i], 0, i);
   }
 
-  vector<ll> d(n), p(n), color(n);
-  rep(i, n) {
-    d[i] = INF;
-    p[i] = -1;
-    color[i] = WHITE;
-  }
-
-  d[0] = 0;
-
-  while(1) {
-    ll u = -1, minv = INF;
-    rep(i, n) {
-      if (color[i] != BLACK && d[i] < minv) {
-        u = i;
-        minv = d[i];
-      }
+  ll w, f, t;
+  rep(i, n-1) {
+    while(1) {
+      tie(w, f, t) = pq.top(); pq.pop();
+      if (mst[f] && !mst[t]) break;
     }
-    if (u == -1) break;
-    color[u] = BLACK;
-    rep(i, n) {
-      if (color[i] != BLACK && d[i] > mat[u][i]) {
-        d[i] = mat[u][i];
-        p[i] = u;
-        color[i] = GRAY;
-      }
+    // debug3(-w, f, t);
+    ans += mat[f][t];
+    mst[t] = true;
+
+    for (int j = 0; j < n; j++) {
+      if (t != j && mat[t][j] != -1) pq.emplace(-mat[t][j], t, j);
     }
   }
-  ll sum = 0;
-  rep(i, n) {
-    if (p[i] != -1) sum += mat[p[i]][i];
-  }
-  outl(sum);
+  outl(ans);
 }
 
 signed main() {
