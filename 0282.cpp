@@ -8,6 +8,7 @@
 #include <iostream>
 #include <iomanip>
 #include <limits>
+#include <list>
 #include <map>
 #include <queue>
 #include <set>
@@ -48,29 +49,45 @@ const ll MOD = 1000000007; // 10^9 + 7
 const int dx[8] = {1, 0, -1, 0, 1, -1, -1, 1};
 const int dy[8] = {0, 1, 0, -1, 1, 1, -1, -1};
 
-ll n, k;
-vector<ll> x;
-
-ll solve2() {
-  vector<ll> y(n-1);
-  for (int i = 1; i < n; i++)
-    y[i-1] = x[i] - x[i-1];
-  sort(y);
-
-  ll ans = x[n-1] - x[0];
-  for (int i = 0; i < k-1; i++)
-    ans -= y[n-2-i];
-  return max(ans, 0ll);
-}
-
 void solve() {
-  ll t; cin >> t;
-  rep(i, t) {
-    cin >> n >> k;
-    x.resize(n);
-    rep(j, n) cin >> x[j];
-    outl(solve2());
+  ll N, R, L; cin >> N >> R >> L;
+  vector<ll> time(N, 0), score(N, 0);
+  priority_queue<P> pq; rep(i, N) pq.emplace(0, -i);
+
+  ll prevtime = 0, looks, lookt;
+  rep(i, R) {
+    while (1) {
+      tie(looks, lookt) = pq.top();
+      lookt *= -1;
+      if (score[lookt] == looks) break;
+      else pq.pop();
+    }
+    ll d, t, x; cin >> d >> t >> x; d--;
+
+    time[lookt] += t - prevtime;
+    prevtime = t;
+
+    score[d] += x;
+    pq.emplace(score[d], -d);
   }
+
+  while (1) {
+    tie(looks, lookt) = pq.top();
+    lookt *= -1;
+    if (score[lookt] == looks) break;
+    else pq.pop();
+  }
+  time[lookt] += L - prevtime;
+
+  ll ans, maxt = -1;
+  rep(i, N) {
+    if (time[i] > maxt) {
+      maxt = time[i];
+      ans = i;
+    }
+  }
+
+  outl(ans+1);
 }
 
 signed main() {
