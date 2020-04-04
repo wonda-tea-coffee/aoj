@@ -49,16 +49,20 @@ const ll MOD = 1000000007; // 10^9 + 7
 const int dx[8] = {1, 0, -1, 0, 1, -1, -1, 1};
 const int dy[8] = {0, 1, 0, -1, 1, 1, -1, -1};
 
-const int MAX = 100;
-const int WHITE = 0;
-const int GRAY = 1;
-const int BLACK = 2;
+void solve() {
+  const ll MAX = 100;
+  const ll WHITE = 0;
+  const ll GRAY  = 1;
+  const ll BLACK = 2;
 
-int n, M[MAX][MAX];
+  ll n; cin >> n;
+  ll mat[MAX][MAX];
+  rep(i, n)rep(j, n) {
+    cin >> mat[i][j];
+    if (mat[i][j] == -1) mat[i][j] = INF;
+  }
 
-ll prim() {
-  ll d[MAX], p[MAX], color[MAX];
-
+  vector<ll> d(n), p(n), color(n);
   rep(i, n) {
     d[i] = INF;
     p[i] = -1;
@@ -70,36 +74,26 @@ ll prim() {
   while(1) {
     ll u = -1, minv = INF;
     rep(i, n) {
-      if (d[i] < minv && color[i] != BLACK) {
+      if (color[i] != BLACK && d[i] < minv) {
         u = i;
         minv = d[i];
       }
     }
     if (u == -1) break;
     color[u] = BLACK;
-    rep(v, n) {
-      if (color[v] != BLACK && d[v] > M[u][v]) {
-        d[v] = M[u][v];
-        p[v] = u;
-        color[v] = GRAY;
+    rep(i, n) {
+      if (color[i] != BLACK && d[i] > mat[u][i]) {
+        d[i] = mat[u][i];
+        p[i] = u;
+        color[i] = GRAY;
       }
     }
   }
   ll sum = 0;
   rep(i, n) {
-    if (p[i] != -1) sum += M[i][p[i]];
+    if (p[i] != -1) sum += mat[p[i]][i];
   }
-  return sum;
-}
-
-void solve() {
-  cin >> n;
-  rep(i, n)rep(j, n) {
-    cin >> M[i][j];
-    if (M[i][j] == -1) M[i][j] = INF;
-  }
-
-  outl(prim());
+  outl(sum);
 }
 
 signed main() {
